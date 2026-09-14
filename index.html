@@ -6,196 +6,234 @@
 
 <style>
 :root {
-  --bg: #EFF3FB;
+  --bg: #EDF2FA;
   --surface: #FFFFFF;
   --surface-2: #F4F8FF;
-  --text: #18243A;
-  --text-2: #4C607A;
-  --text-3: #8A9BB5;
-  --border: #D4DFF0;
+  --text: #0D1E36;
+  --text-2: #466180;
+  --text-3: #90A8BE;
+  --border: #D0DFF0;
+  --shadow: 0 1px 2px rgba(10,24,60,.05),0 4px 20px rgba(10,24,60,.06);
+  --shadow-sm: 0 1px 3px rgba(10,24,60,.07);
   --accent: #1273D3;
-  --accent-dim: rgba(18,115,211,0.1);
-  --green: #16A34A;
-  --green-bg: rgba(22,163,74,0.1);
-  --amber: #C07A00;
-  --amber-bg: rgba(192,122,0,0.1);
-  --red: #DC2626;
-  --red-bg: rgba(220,38,38,0.1);
-  --sb-bg: #252D38;
-  --sb-border: rgba(255,255,255,0.07);
-  --sb-text: #6A80A0;
-  --sb-text-2: #A8BDD4;
-  --sb-active: #FFFFFF;
+  --accent-dim: rgba(18,115,211,.1);
+  --accent-grd: linear-gradient(135deg,#1576DC,#0F65BE);
+  --green: #15803D; --green-bg: rgba(21,128,61,.1);
+  --amber: #92600A; --amber-bg: rgba(146,96,10,.1);
+  --red: #B91C1C;   --red-bg: rgba(185,28,28,.1);
+  --radius: 12px; --radius-sm: 8px;
 }
-
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #090F1A;
-    --surface: #101B2C;
-    --surface-2: #152233;
-    --text: #DCE8F8;
-    --text-2: #5A7898;
-    --text-3: #2D4A65;
-    --border: #192E46;
+    --bg:#080E18;--surface:#0F1C2D;--surface-2:#152333;
+    --text:#D8E8F8;--text-2:#547090;--text-3:#2A4560;
+    --border:#182E48;--shadow:none;--shadow-sm:none;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #090F1A;
-  --surface: #101B2C;
-  --surface-2: #152233;
-  --text: #DCE8F8;
-  --text-2: #5A7898;
-  --text-3: #2D4A65;
-  --border: #192E46;
+  --bg:#080E18;--surface:#0F1C2D;--surface-2:#152333;
+  --text:#D8E8F8;--text-2:#547090;--text-3:#2A4560;
+  --border:#182E48;--shadow:none;--shadow-sm:none;
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Poppins',system-ui,sans-serif;font-size:13.5px;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}
+a{text-decoration:none}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:10px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.page.active{animation:fadeUp .16s ease}
 
 /* LAYOUT */
 .shell{display:flex;min-height:100vh}
 
 /* SIDEBAR */
-.sidebar{width:220px;flex-shrink:0;background:var(--sb-bg);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
-.sb-logo{padding:16px;border-bottom:1px solid var(--sb-border);display:flex;align-items:center;gap:10px}
-.sb-logo-badge{width:34px;height:34px;flex-shrink:0}
-.sb-logo-name{font-family:'Mulish',sans-serif;font-size:11.5px;font-weight:800;color:var(--sb-active);text-transform:uppercase;letter-spacing:.05em;line-height:1.2}
-.sb-logo-sub{font-size:9.5px;color:var(--sb-text);text-transform:uppercase;letter-spacing:.1em}
-.sb-section{padding:12px 0 4px}
-.sb-sec-label{font-size:9.5px;font-weight:600;letter-spacing:.12em;color:var(--sb-text);padding:0 16px 6px;text-transform:uppercase}
-.sb-item{display:flex;align-items:center;gap:9px;padding:8px 16px;color:var(--sb-text-2);cursor:pointer;font-size:13px;font-weight:500;transition:color .12s,background .12s;position:relative;text-decoration:none;user-select:none}
-.sb-item:hover{color:var(--sb-active);background:rgba(255,255,255,.05)}
-.sb-item.active{color:var(--sb-active);background:rgba(18,115,211,.15)}
-.sb-item.active::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--accent);border-radius:0 3px 3px 0}
-.sb-icon{width:16px;height:16px;opacity:.65;flex-shrink:0}
-.sb-item.active .sb-icon{opacity:1}
-.sb-badge{margin-left:auto;background:var(--red);color:white;font-size:10px;font-weight:600;border-radius:20px;padding:1px 6px;line-height:15px}
-.sb-badge.warn{background:var(--amber)}
+.sidebar{width:220px;flex-shrink:0;background:linear-gradient(170deg,#1C2C40 0%,#111C2E 100%);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sb-logo{padding:16px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:10px}
+.sb-logo-badge{width:36px;height:36px;flex-shrink:0}
+.sb-logo-name{font-family:'Mulish',sans-serif;font-size:11.5px;font-weight:800;color:#fff;text-transform:uppercase;letter-spacing:.06em;line-height:1.2}
+.sb-logo-sub{font-size:9.5px;color:#5A7494;text-transform:uppercase;letter-spacing:.12em}
+.sb-section{padding:14px 0 6px}
+.sb-sec-label{font-size:9.5px;font-weight:600;letter-spacing:.14em;color:#5A7494;padding:0 16px 7px;text-transform:uppercase}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8.5px 16px;color:#9AB4CC;cursor:pointer;font-size:13px;font-weight:500;transition:color .12s,background .12s;position:relative;text-decoration:none;user-select:none}
+.sb-item:hover{color:#fff;background:rgba(255,255,255,.05)}
+.sb-item.active{color:#fff;background:rgba(18,115,211,.18)}
+.sb-item.active::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--accent);border-radius:0 3px 3px 0;box-shadow:0 0 8px rgba(18,115,211,.55)}
+.sb-icon{width:16px;height:16px;opacity:.6;flex-shrink:0;transition:opacity .12s}
+.sb-item.active .sb-icon,.sb-item:hover .sb-icon{opacity:1}
+.sb-badge{margin-left:auto;background:var(--red);color:white;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 6px;line-height:15px}
+.sb-badge.warn{background:#92600A}
 .sb-spacer{flex:1}
-.sb-user{padding:12px 16px;border-top:1px solid var(--sb-border);display:flex;align-items:center;gap:9px}
-.sb-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#1273D3,#7C3AED);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600;color:white;flex-shrink:0}
-.sb-user-name{font-size:12.5px;font-weight:600;color:var(--sb-active);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sb-user-role{font-size:10.5px;color:var(--sb-text)}
+.sb-user{padding:12px 16px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:9px}
+.sb-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#1273D3,#7C3AED);display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:white;flex-shrink:0}
+.sb-user-name{font-size:12.5px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-user-role{font-size:10.5px;color:#5A7494}
 
-/* MAIN */
+/* TOPBAR */
 .main{flex:1;display:flex;flex-direction:column;min-width:0}
-.topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;height:54px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
-.topbar-title{font-family:'Mulish',sans-serif;font-size:14px;font-weight:800;color:var(--text);flex:1;letter-spacing:.01em}
-.topbar-date{font-size:12px;color:var(--text-3);white-space:nowrap}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:7px;font-size:12.5px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:opacity .15s;white-space:nowrap}
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 1px 0 rgba(10,24,60,.04);padding:0 24px;height:56px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+.topbar-left{flex:1;display:flex;align-items:center;min-width:0}
+.topbar-title{font-family:'Mulish',sans-serif;font-size:14px;font-weight:800;color:var(--text);letter-spacing:.01em;white-space:nowrap}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px}
+.bc-link{color:var(--text-2);cursor:pointer;transition:color .1s;font-weight:500}
+.bc-link:hover{color:var(--accent)}
+.bc-sep{color:var(--text-3)}
+.bc-current{font-family:'Mulish',sans-serif;font-weight:800;color:var(--text)}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.topbar-date{font-size:12px;color:var(--text-3);white-space:nowrap;padding-right:4px}
+.icon-btn{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;color:var(--text-2);border:1px solid transparent;transition:background .12s,color .12s,border-color .12s;position:relative}
+.icon-btn:hover{background:var(--surface-2);color:var(--text);border-color:var(--border)}
+.notif-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid var(--surface)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 15px;border-radius:var(--radius-sm);font-size:12.5px;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:opacity .15s,transform .1s;white-space:nowrap;letter-spacing:.01em}
 .btn:hover{opacity:.88}
-.btn-primary{background:var(--accent);color:white}
-.btn-ghost{background:var(--surface);border:1px solid var(--border);color:var(--text-2)}
-.btn-sm{padding:5px 11px;font-size:12px}
-.content{padding:22px 24px;flex:1}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent-grd);color:white;box-shadow:0 1px 4px rgba(18,115,211,.3),0 0 0 1px rgba(18,115,211,.12)}
+.btn-ghost{background:var(--surface);border:1px solid var(--border);color:var(--text-2);box-shadow:var(--shadow-sm)}
+.btn-ghost:hover{color:var(--text);border-color:var(--text-3)}
+.btn-sm{padding:6px 12px;font-size:12px}
+
+/* CONTENT */
+.content{padding:24px;flex:1}
 .page{display:none}
 .page.active{display:block}
 
 /* STAT TILES */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:20px}
-.stat-tile{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:15px 18px}
-.stat-label{font-size:10.5px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.09em;margin-bottom:7px}
-.stat-value{font-family:'Mulish',sans-serif;font-size:28px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;line-height:1}
-.stat-sub{font-size:11.5px;color:var(--text-3);margin-top:5px}
-.c-red{color:var(--red)}.c-green{color:var(--green)}.c-amber{color:var(--amber)}.c-blue{color:var(--accent)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.stat-tile{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--border);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);transition:box-shadow .15s;cursor:default}
+.stat-tile:hover{box-shadow:0 2px 4px rgba(10,24,60,.07),0 8px 28px rgba(10,24,60,.09)}
+.st-red{border-top-color:var(--red)}.st-green{border-top-color:var(--green)}.st-blue{border-top-color:var(--accent)}.st-amber{border-top-color:#92600A}
+.stat-label{font-size:10.5px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.stat-value{font-family:'Mulish',sans-serif;font-size:30px;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums;line-height:1}
+.stat-sub{font-size:11.5px;color:var(--text-3);margin-top:6px}
+.trend-up{color:var(--green);font-weight:600}.trend-dn{color:var(--red);font-weight:600}
+.c-red{color:var(--red)}.c-green{color:var(--green)}.c-amber{color:#92600A}.c-blue{color:var(--accent)}
 
-/* LAYOUT HELPERS */
-.two-col{display:grid;grid-template-columns:1fr 330px;gap:16px}
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.panel-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid var(--border)}
+/* GRID */
+.two-col{display:grid;grid-template-columns:1fr 330px;gap:18px}
+
+/* PANEL */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.panel-hd{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid var(--border)}
 .panel-title{font-family:'Mulish',sans-serif;font-size:13px;font-weight:800;color:var(--text);letter-spacing:.01em}
-.panel-link{font-size:11.5px;color:var(--accent);cursor:pointer;font-weight:500}
+.panel-link{font-size:11.5px;color:var(--accent);cursor:pointer;font-weight:600;transition:opacity .12s}
+.panel-link:hover{opacity:.7}
 
 /* WORK QUEUE */
-.queue-item{display:flex;align-items:flex-start;gap:11px;padding:11px 18px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+.queue-item{display:flex;align-items:flex-start;gap:12px;padding:12px 18px 12px 15px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s;border-left:3px solid transparent}
 .queue-item:hover{background:var(--surface-2)}
 .queue-item:last-child{border-bottom:none}
-.q-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
-.dot-red{background:var(--red)}.dot-amber{background:var(--amber)}.dot-blue{background:var(--accent)}
+.qi-red{border-left-color:var(--red)}.qi-amber{border-left-color:#92600A}.qi-blue{border-left-color:var(--accent)}
 .q-body{flex:1;min-width:0}
 .q-main{font-size:12.5px;font-weight:600;color:var(--text);line-height:1.4}
-.q-sub{font-size:11.5px;color:var(--text-2);margin-top:2px}
-.q-time{font-size:11px;color:var(--text-3);flex-shrink:0;padding-top:3px;white-space:nowrap}
+.q-sub{font-size:11.5px;color:var(--text-2);margin-top:2px;line-height:1.4}
+.q-chip{flex-shrink:0;padding-top:2px}
 
 /* TRIP LIST */
-.trip-item{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid var(--border)}
+.trip-item{display:flex;align-items:center;gap:13px;padding:11px 18px;border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer}
+.trip-item:hover{background:var(--surface-2)}
 .trip-item:last-child{border-bottom:none}
-.trip-time{font-size:11.5px;font-weight:600;color:var(--text-2);font-variant-numeric:tabular-nums;width:40px;flex-shrink:0}
+.trip-time{font-size:12px;font-weight:600;color:var(--text-2);font-variant-numeric:tabular-nums;width:40px;flex-shrink:0}
 .trip-body{flex:1;min-width:0}
-.trip-route{font-size:12.5px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trip-route{font-size:12.5px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .trip-meta{font-size:11px;color:var(--text-2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* CHIPS */
-.chip{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
-.chip-green{background:var(--green-bg);color:var(--green)}
-.chip-amber{background:var(--amber-bg);color:var(--amber)}
-.chip-red{background:var(--red-bg);color:var(--red)}
-.chip-blue{background:var(--accent-dim);color:var(--accent)}
-.chip-gray{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;letter-spacing:.01em}
+.chip::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.chip-green{background:var(--green-bg);color:var(--green)}.chip-green::before{background:var(--green)}
+.chip-amber{background:var(--amber-bg);color:var(--amber)}.chip-amber::before{background:#92600A}
+.chip-red{background:var(--red-bg);color:var(--red)}.chip-red::before{background:var(--red)}
+.chip-blue{background:var(--accent-dim);color:var(--accent)}.chip-blue::before{background:var(--accent)}
+.chip-gray{background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}.chip-gray::before{background:var(--text-3)}
 
 /* TABLES */
 .tbl-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
-th{text-align:left;font-size:10.5px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;padding:9px 14px;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--surface-2)}
-td{padding:10px 14px;font-size:12.5px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle}
+th{text-align:left;font-size:10.5px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.09em;padding:10px 14px;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--surface-2)}
+td{padding:11px 14px;font-size:12.5px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle}
 tr:last-child td{border-bottom:none}
+tbody tr{transition:background .1s;cursor:pointer}
 tbody tr:hover td{background:var(--surface-2)}
 .td-id{font-family:'Mulish',sans-serif;font-size:11.5px;font-weight:700;color:var(--accent)}
 .td-muted{color:var(--text-2);font-size:12px}
 .td-nowrap{white-space:nowrap}
 
 /* FUNNEL */
-.funnel{display:flex;gap:6px;margin-bottom:16px}
-.funnel-step{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 14px;text-align:center}
-.funnel-count{font-family:'Mulish',sans-serif;font-size:20px;font-weight:800;color:var(--text)}
-.funnel-label{font-size:10.5px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
-.funnel-val{font-size:11px;color:var(--accent);margin-top:1px}
+.funnel{display:flex;gap:2px;margin-bottom:18px}
+.funnel-step{flex:1;background:var(--surface);border:1px solid var(--border);padding:13px 16px;text-align:center;box-shadow:var(--shadow-sm);transition:background .12s;cursor:pointer;position:relative}
+.funnel-step:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.funnel-step:last-child{border-radius:0 var(--radius) var(--radius) 0}
+.funnel-step:hover{background:var(--surface-2)}
+.funnel-step:not(:last-child)::after{content:'›';position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--text-3);font-size:16px;z-index:1;pointer-events:none}
+.funnel-count{font-family:'Mulish',sans-serif;font-size:22px;font-weight:800;color:var(--text)}
+.funnel-label{font-size:10.5px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.funnel-val{font-size:11.5px;color:var(--accent);margin-top:1px;font-weight:600}
 
 /* FILTER BAR */
-.filter-bar{display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap}
-.search-wrap{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:7px 12px;flex:1;max-width:300px}
+.filter-bar{display:flex;align-items:center;gap:9px;margin-bottom:16px;flex-wrap:wrap}
+.search-wrap{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:7px 13px;flex:1;max-width:300px;box-shadow:var(--shadow-sm);transition:border-color .12s,box-shadow .12s}
+.search-wrap:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
 .search-wrap input{border:none;background:none;color:var(--text);font-size:13px;font-family:inherit;outline:none;width:100%}
 .search-wrap input::placeholder{color:var(--text-3)}
-select.fsel{background:var(--surface);border:1px solid var(--border);color:var(--text-2);font-size:12px;font-family:inherit;padding:7px 11px;border-radius:7px;cursor:pointer;outline:none}
+select.fsel{background:var(--surface);border:1px solid var(--border);color:var(--text-2);font-size:12px;font-family:inherit;padding:7px 12px;border-radius:var(--radius-sm);cursor:pointer;outline:none;box-shadow:var(--shadow-sm)}
+select.fsel:focus{border-color:var(--accent)}
 
 /* ALERT BANNER */
-.alert-banner{display:flex;align-items:center;gap:10px;background:var(--red-bg);border:1px solid rgba(220,38,38,.2);border-radius:8px;padding:10px 16px;margin-bottom:16px;font-size:12.5px;font-weight:500;color:var(--red)}
+.alert-banner{display:flex;align-items:center;gap:12px;background:var(--red-bg);border:1px solid rgba(185,28,28,.2);border-left:4px solid var(--red);border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:18px;font-size:12.5px;font-weight:500;color:var(--red)}
+.alert-text{flex:1;line-height:1.45}
+.alert-dismiss{flex-shrink:0;cursor:pointer;opacity:.5;transition:opacity .1s;font-size:17px;line-height:1;font-weight:300}
+.alert-dismiss:hover{opacity:1}
 
 /* BOOKING DETAIL */
-.booking-header{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:16px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
-.bk-eyebrow{font-size:10.5px;font-weight:600;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
-.bk-org{font-family:'Mulish',sans-serif;font-size:20px;font-weight:800;color:var(--text);margin-bottom:3px}
-.bk-event{font-size:13px;color:var(--text-2)}
-.bk-actions{display:flex;gap:8px;flex-shrink:0;align-items:center}
-.booking-grid{display:grid;grid-template-columns:1fr 296px;gap:16px}
-.b-left{display:flex;flex-direction:column;gap:16px}
-.b-right{display:flex;flex-direction:column;gap:16px}
-.mov-hd,.mov-row{display:grid;grid-template-columns:80px 1fr 100px 80px;gap:12px;padding:9px 18px;align-items:center;font-size:12.5px}
-.mov-hd{background:var(--surface-2);border-bottom:1px solid var(--border);font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;padding:8px 18px}
-.mov-row{border-bottom:1px solid var(--border)}
+.booking-header{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:18px;box-shadow:var(--shadow);display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.bk-eyebrow{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:600;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.bk-org{font-family:'Mulish',sans-serif;font-size:21px;font-weight:800;color:var(--text);margin-bottom:4px}
+.bk-event{font-size:13px;color:var(--text-2);line-height:1.5}
+.bk-actions{display:flex;gap:8px;flex-shrink:0;align-items:flex-start}
+.booking-grid{display:grid;grid-template-columns:1fr 296px;gap:18px}
+.b-left{display:flex;flex-direction:column;gap:18px}
+.b-right{display:flex;flex-direction:column;gap:18px}
+.mov-hd,.mov-row{display:grid;grid-template-columns:88px 1fr 100px 90px;gap:12px;padding:10px 18px;align-items:center;font-size:12.5px}
+.mov-hd{background:var(--surface-2);border-bottom:1px solid var(--border);font-size:10px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.09em;padding:8px 18px}
+.mov-row{border-bottom:1px solid var(--border);transition:background .1s}
+.mov-row:hover{background:var(--surface-2)}
 .mov-row:last-child{border-bottom:none}
-.mov-time{font-variant-numeric:tabular-nums;font-weight:600;color:var(--text)}
+.mov-time{font-variant-numeric:tabular-nums;font-weight:600;color:var(--text);line-height:1.35;font-size:12px}
 .detail-row{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12.5px}
 .detail-row:last-child{border-bottom:none}
-.detail-label{width:96px;flex-shrink:0;color:var(--text-3);font-size:11.5px;padding-top:1px}
-.detail-val{color:var(--text)}
+.detail-label{width:100px;flex-shrink:0;color:var(--text-3);font-size:11.5px;padding-top:1px}
+.detail-val{color:var(--text);line-height:1.5}
 .pay-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:12.5px}
 .pay-row:last-child{border-bottom:none}
 .pay-label{color:var(--text-2)}
 .pay-val{font-weight:600;font-variant-numeric:tabular-nums}
 .pay-total{font-family:'Mulish',sans-serif;font-size:15px;color:var(--text)}
 .pay-paid{color:var(--green)}.pay-due{color:var(--red)}
-.doc-item{display:flex;align-items:center;justify-content:space-between;padding:9px 18px;border-bottom:1px solid var(--border);font-size:12px}
+.doc-item{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--border);font-size:12px;transition:background .1s;cursor:pointer}
+.doc-item:hover{background:var(--surface-2)}
 .doc-item:last-child{border-bottom:none}
-.doc-name{font-weight:500;color:var(--text)}
+.doc-name{font-weight:600;color:var(--text)}
 .doc-ver{font-size:11px;color:var(--text-3);margin-top:1px}
 
 /* SCHEDULE */
-.sched-day{margin-bottom:20px}
-.sched-day-hd{display:flex;align-items:baseline;gap:10px;padding-bottom:8px;border-bottom:2px solid var(--border);margin-bottom:10px}
+.sched-day{margin-bottom:22px}
+.sched-day-hd{display:flex;align-items:baseline;gap:10px;padding-bottom:9px;border-bottom:2px solid var(--border);margin-bottom:12px}
 .sched-date{font-family:'Mulish',sans-serif;font-size:13px;font-weight:800;color:var(--text)}
-.sched-today{background:var(--accent);color:white;padding:1px 8px;border-radius:5px}
+.sched-today{background:var(--accent);color:white;padding:2px 10px;border-radius:6px}
 .sched-count{font-size:11.5px;color:var(--text-3)}
+.sched-empty{display:flex;align-items:center;gap:10px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-3);font-size:12.5px;box-shadow:var(--shadow)}
+
+/* COMPLIANCE */
+.cr-critical td:first-child{border-left:3px solid var(--red);padding-left:11px}
+.cr-advisory td:first-child{border-left:3px solid #92600A;padding-left:11px}
+.cr-clear td:first-child{border-left:3px solid var(--green);padding-left:11px}
+
+/* MISC */
+.pad{padding:14px 18px}
 </style>
 
 <div class="shell">
@@ -203,30 +241,22 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sb-logo">
-    <svg class="sb-logo-badge" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Outer ring -->
+    <svg class="sb-logo-badge" viewBox="0 0 36 36" fill="none">
       <circle cx="18" cy="18" r="18" fill="#14233A"/>
-      <circle cx="18" cy="18" r="16" fill="none" stroke="white" stroke-width=".6" opacity=".25"/>
-      <!-- City skyline silhouette (white) -->
-      <rect x="5"   y="19" width="2.5" height="6"  rx=".4" fill="white" opacity=".75"/>
-      <rect x="8.2" y="15" width="3.5" height="10" rx=".4" fill="white" opacity=".85"/>
-      <rect x="12.5" y="13" width="2.5" height="12" rx=".4" fill="white" opacity=".9"/>
+      <circle cx="18" cy="18" r="16" fill="none" stroke="white" stroke-width=".5" opacity=".2"/>
+      <rect x="5"    y="19" width="2.5" height="6"  rx=".4" fill="white" opacity=".7"/>
+      <rect x="8.2"  y="15" width="3.5" height="10" rx=".4" fill="white" opacity=".82"/>
+      <rect x="12.5" y="13" width="2.5" height="12" rx=".4" fill="white" opacity=".88"/>
       <rect x="15.5" y="10" width="4"   height="15" rx=".4" fill="white"/>
-      <!-- antenna on tallest -->
-      <rect x="17.2" y="8"  width=".6" height="2.5" fill="white" opacity=".8"/>
-      <rect x="20.5" y="14" width="3"   height="11" rx=".4" fill="white" opacity=".9"/>
-      <rect x="24.2" y="17" width="3"   height="8"  rx=".4" fill="white" opacity=".8"/>
-      <rect x="27.5" y="20" width="2.5" height="5"  rx=".4" fill="white" opacity=".65"/>
-      <!-- Ground line -->
-      <rect x="4" y="24.5" width="28" height=".5" fill="white" opacity=".2"/>
-      <!-- Bus body -->
+      <rect x="17.2" y="8"  width=".6"  height="2.5" fill="white" opacity=".7"/>
+      <rect x="20.5" y="14" width="3"   height="11" rx=".4" fill="white" opacity=".88"/>
+      <rect x="24.2" y="17" width="3"   height="8"  rx=".4" fill="white" opacity=".78"/>
+      <rect x="27.5" y="20" width="2.5" height="5"  rx=".4" fill="white" opacity=".6"/>
       <rect x="7" y="24" width="22" height="5.5" rx="1.2" fill="#14233A" stroke="white" stroke-width=".8"/>
-      <!-- Bus windows -->
-      <rect x="9"  y="25.5" width="3" height="2" rx=".4" fill="white" opacity=".9"/>
-      <rect x="13" y="25.5" width="3" height="2" rx=".4" fill="white" opacity=".9"/>
-      <rect x="17" y="25.5" width="3" height="2" rx=".4" fill="white" opacity=".9"/>
+      <rect x="9"  y="25.5" width="3"   height="2" rx=".4" fill="white" opacity=".9"/>
+      <rect x="13" y="25.5" width="3"   height="2" rx=".4" fill="white" opacity=".9"/>
+      <rect x="17" y="25.5" width="3"   height="2" rx=".4" fill="white" opacity=".9"/>
       <rect x="21" y="25.5" width="3.5" height="2" rx=".4" fill="white" opacity=".9"/>
-      <!-- Wheels -->
       <circle cx="11.5" cy="30.2" r="1.5" fill="#14233A" stroke="white" stroke-width=".7"/>
       <circle cx="24.5" cy="30.2" r="1.5" fill="#14233A" stroke="white" stroke-width=".7"/>
     </svg>
@@ -283,10 +313,9 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
   </div>
 
   <div class="sb-spacer"></div>
-
   <div class="sb-user">
     <div class="sb-avatar">DR</div>
-    <div>
+    <div style="min-width:0">
       <div class="sb-user-name">Diana Reyes</div>
       <div class="sb-user-role">Operations Lead</div>
     </div>
@@ -296,33 +325,43 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
 <!-- MAIN -->
 <div class="main">
   <header class="topbar">
-    <div class="topbar-title" id="topbar-title">Operations Dashboard</div>
-    <div class="topbar-date">Mon, September 14, 2026</div>
-    <button class="btn btn-ghost btn-sm">Search</button>
-    <button class="btn btn-primary btn-sm">+ New Inquiry</button>
+    <div class="topbar-left">
+      <div id="topbar-bc"><div class="topbar-title">Operations Dashboard</div></div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-date">Mon, Sep 14, 2026</div>
+      <div class="icon-btn" title="Search">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6.5" cy="6.5" r="5"/><line x1="10.5" y1="10.5" x2="14.5" y2="14.5"/></svg>
+      </div>
+      <div class="icon-btn" title="Notifications">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.5a5 5 0 015 5v3l1.5 2H1.5L3 9.5v-3a5 5 0 015-5z"/><path d="M6.5 13.5a1.5 1.5 0 003 0"/></svg>
+        <div class="notif-dot"></div>
+      </div>
+      <button class="btn btn-primary btn-sm">+ New Inquiry</button>
+    </div>
   </header>
 
   <div class="content">
 
-    <!-- ===== DASHBOARD ===== -->
+    <!-- DASHBOARD -->
     <div id="dashboard" class="page active">
       <div class="stats-row">
-        <div class="stat-tile">
+        <div class="stat-tile st-blue">
           <div class="stat-label">Today's Movements</div>
           <div class="stat-value">4</div>
-          <div class="stat-sub">Next departs at 07:30</div>
+          <div class="stat-sub">Next at 07:30 · DCA → Capital Hilton</div>
         </div>
-        <div class="stat-tile">
+        <div class="stat-tile st-red">
           <div class="stat-label">Work Queue</div>
           <div class="stat-value c-red">6</div>
-          <div class="stat-sub">2 critical · 4 advisory</div>
+          <div class="stat-sub"><span class="trend-dn">2 critical</span> · 4 advisory</div>
         </div>
-        <div class="stat-tile">
+        <div class="stat-tile st-green">
           <div class="stat-label">September Revenue</div>
           <div class="stat-value">$87.4K</div>
-          <div class="stat-sub c-green">↑ 14% vs August</div>
+          <div class="stat-sub"><span class="trend-up">↑ 14%</span> vs August</div>
         </div>
-        <div class="stat-tile">
+        <div class="stat-tile st-amber">
           <div class="stat-label">Open Pipeline</div>
           <div class="stat-value">$124K</div>
           <div class="stat-sub">14 active inquiries</div>
@@ -331,102 +370,44 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
 
       <div class="two-col">
         <div class="panel">
-          <div class="panel-hd">
-            <span class="panel-title">Work Queue</span>
-            <span class="panel-link">Mark all reviewed</span>
+          <div class="panel-hd"><span class="panel-title">Work Queue</span><span class="panel-link">Mark all reviewed</span></div>
+          <div class="queue-item qi-red">
+            <div class="q-body"><div class="q-main">COI expires in 2 days — Eagle Luxury Transit</div><div class="q-sub">OP-047 · Affects BK-4471 (Sep 18) and BK-4489 (Sep 22) · Upload replacement immediately</div></div>
+            <div class="q-chip"><span class="chip chip-red">Critical</span></div>
           </div>
-          <div class="queue-item">
-            <div class="q-dot dot-red"></div>
-            <div class="q-body">
-              <div class="q-main">COI expires in 2 days — Eagle Luxury Transit</div>
-              <div class="q-sub">OP-047 · Affects BK-4471 (Sep 18) and BK-4489 (Sep 22)</div>
-            </div>
-            <div class="q-time">Critical</div>
+          <div class="queue-item qi-red">
+            <div class="q-body"><div class="q-main">Payment overdue 12 days — Meridian Group</div><div class="q-sub">BK-4388 · $4,800 balance outstanding · Originally due Sep 2</div></div>
+            <div class="q-chip"><span class="chip chip-red">Critical</span></div>
           </div>
-          <div class="queue-item">
-            <div class="q-dot dot-red"></div>
-            <div class="q-body">
-              <div class="q-main">Payment overdue 12 days — Meridian Group</div>
-              <div class="q-sub">BK-4388 · $4,800 balance outstanding · Due Sep 2</div>
-            </div>
-            <div class="q-time">Critical</div>
+          <div class="queue-item qi-amber">
+            <div class="q-body"><div class="q-main">No operator assigned — BK-4502 departs in 3 days</div><div class="q-sub">National Policy Conference · 48 pax · Washington Convention Center</div></div>
+            <div class="q-chip"><span class="chip chip-amber">Advisory</span></div>
           </div>
-          <div class="queue-item">
-            <div class="q-dot dot-amber"></div>
-            <div class="q-body">
-              <div class="q-main">No operator assigned — BK-4502 departs in 3 days</div>
-              <div class="q-sub">National Policy Conference · 48 pax · Washington Convention Ctr</div>
-            </div>
-            <div class="q-time">Advisory</div>
+          <div class="queue-item qi-amber">
+            <div class="q-body"><div class="q-main">FMCSA check overdue — Tri-State Transport</div><div class="q-sub">OP-031 · Last verified Aug 14 · 31 days since check</div></div>
+            <div class="q-chip"><span class="chip chip-amber">Advisory</span></div>
           </div>
-          <div class="queue-item">
-            <div class="q-dot dot-amber"></div>
-            <div class="q-body">
-              <div class="q-main">FMCSA check overdue — Tri-State Transport</div>
-              <div class="q-sub">OP-031 · Last verified Aug 14 · 31 days since check</div>
-            </div>
-            <div class="q-time">Advisory</div>
+          <div class="queue-item qi-amber">
+            <div class="q-body"><div class="q-main">Quote unseen 4 days — INQ-2847 · Meridian Group</div><div class="q-sub">$3,200 estimate · Sent Sep 10 · Owner: T. Williams</div></div>
+            <div class="q-chip"><span class="chip chip-amber">Advisory</span></div>
           </div>
-          <div class="queue-item">
-            <div class="q-dot dot-amber"></div>
-            <div class="q-body">
-              <div class="q-main">Quote unseen 4 days — INQ-2847 · Meridian Group</div>
-              <div class="q-sub">$3,200 estimate · Sent Sep 10 · Owner: T. Williams</div>
-            </div>
-            <div class="q-time">Advisory</div>
-          </div>
-          <div class="queue-item">
-            <div class="q-dot dot-blue"></div>
-            <div class="q-body">
-              <div class="q-main">E-signature pending — BK-4471 · Nexus Corp</div>
-              <div class="q-sub">Guest Confirmation GC-4471 · Sent Sep 13 · 1 day ago</div>
-            </div>
-            <div class="q-time">Info</div>
+          <div class="queue-item qi-blue">
+            <div class="q-body"><div class="q-main">E-signature pending — BK-4471 · Nexus Corp</div><div class="q-sub">Guest Confirmation GC-4471 · Sent Sep 13 · 1 day ago</div></div>
+            <div class="q-chip"><span class="chip chip-blue">Info</span></div>
           </div>
         </div>
 
         <div class="panel">
-          <div class="panel-hd">
-            <span class="panel-title">Today's Schedule</span>
-            <span class="panel-link" data-page="schedule">Full view →</span>
-          </div>
-          <div class="trip-item">
-            <div class="trip-time">07:30</div>
-            <div class="trip-body">
-              <div class="trip-route">DCA → Capital Hilton</div>
-              <div class="trip-meta">Nexus Corp · Eagle Luxury · 24 pax</div>
-            </div>
-            <span class="chip chip-green">Compliant</span>
-          </div>
-          <div class="trip-item">
-            <div class="trip-time">10:00</div>
-            <div class="trip-body">
-              <div class="trip-route">Westin DC → BWI Terminal A</div>
-              <div class="trip-meta">J&amp;A Consulting · Tri-State Transport · 8 pax</div>
-            </div>
-            <span class="chip chip-amber">COI 90-day</span>
-          </div>
-          <div class="trip-item">
-            <div class="trip-time">14:30</div>
-            <div class="trip-body">
-              <div class="trip-route">Gaylord National → Union Station</div>
-              <div class="trip-meta">Heritage Foundation · First Class Charter · 32 pax</div>
-            </div>
-            <span class="chip chip-green">Compliant</span>
-          </div>
-          <div class="trip-item">
-            <div class="trip-time">19:00</div>
-            <div class="trip-body">
-              <div class="trip-route">Union Station → Bethesda Marriott</div>
-              <div class="trip-meta">FedEx Conference · Garden State Coach · 55 pax</div>
-            </div>
-            <span class="chip chip-green">Compliant</span>
-          </div>
+          <div class="panel-hd"><span class="panel-title">Today's Schedule</span><span class="panel-link" data-page="schedule">Full view →</span></div>
+          <div class="trip-item"><div class="trip-time">07:30</div><div class="trip-body"><div class="trip-route">DCA → Capital Hilton</div><div class="trip-meta">Nexus Corp · Eagle Luxury · 24 pax</div></div><span class="chip chip-green">Compliant</span></div>
+          <div class="trip-item"><div class="trip-time">10:00</div><div class="trip-body"><div class="trip-route">Westin DC → BWI Terminal A</div><div class="trip-meta">J&amp;A Consulting · Tri-State Transport · 8 pax</div></div><span class="chip chip-amber">COI 90-day</span></div>
+          <div class="trip-item"><div class="trip-time">14:30</div><div class="trip-body"><div class="trip-route">Gaylord National → Union Station</div><div class="trip-meta">Heritage Foundation · First Class Charter · 32 pax</div></div><span class="chip chip-green">Compliant</span></div>
+          <div class="trip-item"><div class="trip-time">19:00</div><div class="trip-body"><div class="trip-route">Union Station → Bethesda Marriott</div><div class="trip-meta">FedEx Conference · Garden State Coach · 55 pax</div></div><span class="chip chip-green">Compliant</span></div>
         </div>
       </div>
     </div>
 
-    <!-- ===== INQUIRIES ===== -->
+    <!-- INQUIRIES -->
     <div id="inquiries" class="page">
       <div class="funnel">
         <div class="funnel-step"><div class="funnel-count">3</div><div class="funnel-label">New</div><div class="funnel-val">$15.1K</div></div>
@@ -446,38 +427,45 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
         <button class="btn btn-primary btn-sm" style="margin-left:auto">+ New Inquiry</button>
       </div>
       <div class="panel">
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr><th>ID</th><th>Organization</th><th>Service Type</th><th>Svc Date</th><th>Source</th><th>Stage</th><th>Est. Value</th><th>Owner</th><th></th></tr></thead>
-            <tbody>
-              <tr><td class="td-id">INQ-2848</td><td><strong>Nexus Corporation</strong></td><td class="td-muted">Airport Transfer</td><td class="td-muted td-nowrap">Sep 18, 2026</td><td class="td-muted">Website</td><td><span class="chip chip-blue">Quoted</span></td><td class="td-nowrap">$2,400</td><td class="td-muted">D. Reyes</td><td><span class="panel-link">View</span></td></tr>
-              <tr><td class="td-id">INQ-2847</td><td><strong>Meridian Group</strong></td><td class="td-muted">Corporate Shuttle</td><td class="td-muted td-nowrap">Sep 20, 2026</td><td class="td-muted">Referral</td><td><span class="chip chip-amber">Follow-Up</span></td><td class="td-nowrap">$3,200</td><td class="td-muted">T. Williams</td><td><span class="panel-link">View</span></td></tr>
-              <tr><td class="td-id">INQ-2846</td><td><strong>Heritage Foundation</strong></td><td class="td-muted">Conference Transfer</td><td class="td-muted td-nowrap">Sep 22, 2026</td><td class="td-muted">Website</td><td><span class="chip chip-blue">Qualified</span></td><td class="td-nowrap">$8,100</td><td class="td-muted">D. Reyes</td><td><span class="panel-link">View</span></td></tr>
-              <tr><td class="td-id">INQ-2845</td><td><strong>FedEx Corporation</strong></td><td class="td-muted">Event Shuttle</td><td class="td-muted td-nowrap">Sep 25, 2026</td><td class="td-muted">Google/GBP</td><td><span class="chip chip-gray">New</span></td><td class="td-nowrap">$11,200</td><td class="td-muted td-nowrap">— Unassigned</td><td><span class="panel-link">View</span></td></tr>
-              <tr><td class="td-id">INQ-2844</td><td><strong>Georgetown University</strong></td><td class="td-muted">Campus Shuttle</td><td class="td-muted td-nowrap">Sep 28, 2026</td><td class="td-muted">Inbound Call</td><td><span class="chip chip-blue">Qualified</span></td><td class="td-nowrap">$4,400</td><td class="td-muted">M. Torres</td><td><span class="panel-link">View</span></td></tr>
-              <tr><td class="td-id">INQ-2843</td><td><strong>Johnson &amp; Associates</strong></td><td class="td-muted">Airport Transfer</td><td class="td-muted td-nowrap">Sep 15, 2026</td><td class="td-muted">Website</td><td><span class="chip chip-green">Won</span></td><td class="td-nowrap">$1,800</td><td class="td-muted">T. Williams</td><td><span class="panel-link">View</span></td></tr>
-              <tr><td class="td-id">INQ-2842</td><td><strong>Marriott International</strong></td><td class="td-muted">Event Shuttle</td><td class="td-muted td-nowrap">Oct 2, 2026</td><td class="td-muted">Email</td><td><span class="chip chip-blue">Quoted</span></td><td class="td-nowrap">$6,700</td><td class="td-muted">D. Reyes</td><td><span class="panel-link">View</span></td></tr>
-              <tr><td class="td-id">INQ-2841</td><td><strong>Ritz-Carlton Washington</strong></td><td class="td-muted">VIP Transfer</td><td class="td-muted td-nowrap">Oct 5, 2026</td><td class="td-muted">Referral</td><td><span class="chip chip-gray">New</span></td><td class="td-nowrap">$3,900</td><td class="td-muted td-nowrap">— Unassigned</td><td><span class="panel-link">View</span></td></tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>ID</th><th>Organization</th><th>Service Type</th><th>Svc Date</th><th>Source</th><th>Stage</th><th>Est. Value</th><th>Owner</th><th></th></tr></thead>
+          <tbody>
+            <tr><td class="td-id">INQ-2848</td><td><strong>Nexus Corporation</strong></td><td class="td-muted">Airport Transfer</td><td class="td-muted td-nowrap">Sep 18, 2026</td><td class="td-muted">Website</td><td><span class="chip chip-blue">Quoted</span></td><td class="td-nowrap" style="font-variant-numeric:tabular-nums">$2,400</td><td class="td-muted">D. Reyes</td><td><span class="panel-link">Open →</span></td></tr>
+            <tr><td class="td-id">INQ-2847</td><td><strong>Meridian Group</strong></td><td class="td-muted">Corporate Shuttle</td><td class="td-muted td-nowrap">Sep 20, 2026</td><td class="td-muted">Referral</td><td><span class="chip chip-amber">Follow-Up</span></td><td class="td-nowrap" style="font-variant-numeric:tabular-nums">$3,200</td><td class="td-muted">T. Williams</td><td><span class="panel-link">Open →</span></td></tr>
+            <tr><td class="td-id">INQ-2846</td><td><strong>Heritage Foundation</strong></td><td class="td-muted">Conference Transfer</td><td class="td-muted td-nowrap">Sep 22, 2026</td><td class="td-muted">Website</td><td><span class="chip chip-blue">Qualified</span></td><td class="td-nowrap" style="font-variant-numeric:tabular-nums">$8,100</td><td class="td-muted">D. Reyes</td><td><span class="panel-link">Open →</span></td></tr>
+            <tr><td class="td-id">INQ-2845</td><td><strong>FedEx Corporation</strong></td><td class="td-muted">Event Shuttle</td><td class="td-muted td-nowrap">Sep 25, 2026</td><td class="td-muted">Google/GBP</td><td><span class="chip chip-gray">New</span></td><td class="td-nowrap" style="font-variant-numeric:tabular-nums">$11,200</td><td class="td-muted" style="color:var(--red)">Unassigned</td><td><span class="panel-link">Open →</span></td></tr>
+            <tr><td class="td-id">INQ-2844</td><td><strong>Georgetown University</strong></td><td class="td-muted">Campus Shuttle</td><td class="td-muted td-nowrap">Sep 28, 2026</td><td class="td-muted">Inbound Call</td><td><span class="chip chip-blue">Qualified</span></td><td class="td-nowrap" style="font-variant-numeric:tabular-nums">$4,400</td><td class="td-muted">M. Torres</td><td><span class="panel-link">Open →</span></td></tr>
+            <tr><td class="td-id">INQ-2843</td><td><strong>Johnson &amp; Associates</strong></td><td class="td-muted">Airport Transfer</td><td class="td-muted td-nowrap">Sep 15, 2026</td><td class="td-muted">Website</td><td><span class="chip chip-green">Won</span></td><td class="td-nowrap" style="font-variant-numeric:tabular-nums">$1,800</td><td class="td-muted">T. Williams</td><td><span class="panel-link">Open →</span></td></tr>
+            <tr><td class="td-id">INQ-2842</td><td><strong>Marriott International</strong></td><td class="td-muted">Event Shuttle</td><td class="td-muted td-nowrap">Oct 2, 2026</td><td class="td-muted">Email</td><td><span class="chip chip-blue">Quoted</span></td><td class="td-nowrap" style="font-variant-numeric:tabular-nums">$6,700</td><td class="td-muted">D. Reyes</td><td><span class="panel-link">Open →</span></td></tr>
+            <tr><td class="td-id">INQ-2841</td><td><strong>Ritz-Carlton Washington</strong></td><td class="td-muted">VIP Transfer</td><td class="td-muted td-nowrap">Oct 5, 2026</td><td class="td-muted">Referral</td><td><span class="chip chip-gray">New</span></td><td class="td-nowrap" style="font-variant-numeric:tabular-nums">$3,900</td><td class="td-muted" style="color:var(--red)">Unassigned</td><td><span class="panel-link">Open →</span></td></tr>
+          </tbody>
+        </table></div>
       </div>
     </div>
 
-    <!-- ===== BOOKING DETAIL ===== -->
+    <!-- BOOKING DETAIL -->
     <div id="bookings" class="page">
       <div class="alert-banner">
-        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M8 1.5L1 14h14L8 1.5z"/><line x1="8" y1="6.5" x2="8" y2="9.5"/><circle cx="8" cy="11.5" r=".5" fill="currentColor"/></svg>
-        Eagle Luxury Transit COI expires September 16 — 2 days from now. This operator is assigned to all 4 movements. Upload a replacement COI immediately or reassign.
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M8 1.5L1 14h14L8 1.5z"/><line x1="8" y1="6.5" x2="8" y2="9.5"/><circle cx="8" cy="11.5" r=".6" fill="currentColor"/></svg>
+        <div class="alert-text">Eagle Luxury Transit COI expires <strong>September 16</strong> — 2 days away. This operator covers all 4 movements on this booking. Upload a replacement COI or reassign immediately.</div>
+        <div class="alert-dismiss" id="dismiss-alert">✕</div>
       </div>
       <div class="booking-header">
         <div>
-          <div class="bk-eyebrow">BK-4471 · Confirmed · 4 Movements · Sep 18–19, 2026</div>
+          <div class="bk-eyebrow">
+            <span>BK-4471</span>
+            <span style="color:var(--text-3)">·</span>
+            <span class="chip chip-green" style="font-size:10px;padding:2px 8px">Confirmed</span>
+            <span style="color:var(--text-3)">·</span>
+            <span>4 Movements</span>
+          </div>
           <div class="bk-org">Nexus Corporation</div>
-          <div class="bk-event">Annual Leadership Summit · Capital Hilton, Washington DC · Contact: Sarah Chen, VP Operations</div>
+          <div class="bk-event">Annual Leadership Summit · Sep 18–19, 2026 · Capital Hilton, Washington DC
+            <span style="display:block;font-size:12px;color:var(--text-3);margin-top:3px">Contact: Sarah Chen, VP Operations · Sales: T. Williams · Ops PM: D. Reyes</span>
+          </div>
         </div>
         <div class="bk-actions">
-          <button class="btn btn-ghost btn-sm">View Sales Order</button>
+          <button class="btn btn-ghost btn-sm">Sales Order</button>
           <button class="btn btn-ghost btn-sm">Work Order</button>
           <button class="btn btn-primary btn-sm">Resend E-signature</button>
         </div>
@@ -487,51 +475,31 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
           <div class="panel">
             <div class="panel-hd"><span class="panel-title">Movements</span><span class="panel-link">+ Add Movement</span></div>
             <div class="mov-hd"><span>Time</span><span>Route</span><span>Operator</span><span>Compliance</span></div>
-            <div class="mov-row">
-              <span class="mov-time">Sep 18 07:30</span>
-              <div><div style="font-weight:500">DCA Terminal B → Capital Hilton</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">28 pax · Executive Coach · Luggage van required</div></div>
-              <span style="font-size:12px;color:var(--text-2)">Eagle Luxury</span>
-              <span class="chip chip-red">COI Exp.</span>
-            </div>
-            <div class="mov-row">
-              <span class="mov-time">Sep 18 18:00</span>
-              <div><div style="font-weight:500">Capital Hilton → Georgetown Waterfront</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">28 pax · Executive Coach · VIP dinner transfer</div></div>
-              <span style="font-size:12px;color:var(--text-2)">Eagle Luxury</span>
-              <span class="chip chip-red">COI Exp.</span>
-            </div>
-            <div class="mov-row">
-              <span class="mov-time">Sep 18 22:30</span>
-              <div><div style="font-weight:500">Georgetown Waterfront → Capital Hilton</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">28 pax · Executive Coach</div></div>
-              <span style="font-size:12px;color:var(--text-2)">Eagle Luxury</span>
-              <span class="chip chip-red">COI Exp.</span>
-            </div>
-            <div class="mov-row">
-              <span class="mov-time">Sep 19 14:00</span>
-              <div><div style="font-weight:500">Capital Hilton → DCA Terminal B</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">28 pax · Executive Coach · Luggage van required</div></div>
-              <span style="font-size:12px;color:var(--text-2)">Eagle Luxury</span>
-              <span class="chip chip-red">COI Exp.</span>
-            </div>
+            <div class="mov-row"><div class="mov-time">Sep 18<br>07:30</div><div><div style="font-weight:600;font-size:13px">DCA Terminal B → Capital Hilton</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">28 pax · Executive Coach · Luggage van required</div></div><span style="font-size:12px;color:var(--text-2)">Eagle Luxury</span><span class="chip chip-red">COI Exp.</span></div>
+            <div class="mov-row"><div class="mov-time">Sep 18<br>18:00</div><div><div style="font-weight:600;font-size:13px">Capital Hilton → Georgetown Waterfront</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">28 pax · Executive Coach · VIP dinner transfer</div></div><span style="font-size:12px;color:var(--text-2)">Eagle Luxury</span><span class="chip chip-red">COI Exp.</span></div>
+            <div class="mov-row"><div class="mov-time">Sep 18<br>22:30</div><div><div style="font-weight:600;font-size:13px">Georgetown Waterfront → Capital Hilton</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">28 pax · Executive Coach</div></div><span style="font-size:12px;color:var(--text-2)">Eagle Luxury</span><span class="chip chip-red">COI Exp.</span></div>
+            <div class="mov-row"><div class="mov-time">Sep 19<br>14:00</div><div><div style="font-weight:600;font-size:13px">Capital Hilton → DCA Terminal B</div><div style="font-size:11px;color:var(--text-3);margin-top:2px">28 pax · Executive Coach · Luggage van required</div></div><span style="font-size:12px;color:var(--text-2)">Eagle Luxury</span><span class="chip chip-red">COI Exp.</span></div>
           </div>
           <div class="panel">
             <div class="panel-hd"><span class="panel-title">Booking Details</span></div>
-            <div style="padding:12px 18px">
-              <div class="detail-row"><span class="detail-label">Organization</span><span class="detail-val" style="color:var(--accent);font-weight:500">Nexus Corporation</span></div>
+            <div class="pad">
+              <div class="detail-row"><span class="detail-label">Organization</span><span class="detail-val" style="color:var(--accent);font-weight:600">Nexus Corporation</span></div>
               <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-val">Sarah Chen · VP Operations</span></div>
-              <div class="detail-row"><span class="detail-label">Source</span><span class="detail-val">Website · UTM: google / cpc / charter-bus-dc</span></div>
+              <div class="detail-row"><span class="detail-label">Lead Source</span><span class="detail-val">Website · UTM: google / cpc / charter-bus-dc</span></div>
               <div class="detail-row"><span class="detail-label">Sales Owner</span><span class="detail-val">T. Williams</span></div>
-              <div class="detail-row"><span class="detail-label">Operations PM</span><span class="detail-val">D. Reyes</span></div>
+              <div class="detail-row"><span class="detail-label">Ops PM</span><span class="detail-val">D. Reyes</span></div>
               <div class="detail-row"><span class="detail-label">Service Type</span><span class="detail-val">Corporate Event Shuttle</span></div>
-              <div class="detail-row"><span class="detail-label">Notes</span><span class="detail-val">Onboard WiFi and water service. Luggage van required for both airport movements.</span></div>
+              <div class="detail-row"><span class="detail-label">Notes</span><span class="detail-val">Onboard WiFi and water service required. Luggage van for both airport movements.</span></div>
             </div>
           </div>
         </div>
         <div class="b-right">
           <div class="panel">
             <div class="panel-hd"><span class="panel-title">Payment</span><span class="panel-link">Record Payment</span></div>
-            <div style="padding:10px 18px">
+            <div class="pad">
               <div class="pay-row"><span class="pay-label">Booking Total</span><span class="pay-val pay-total">$9,600.00</span></div>
               <div class="pay-row"><span class="pay-label">Deposit paid Sep 2</span><span class="pay-val pay-paid">−$4,800.00</span></div>
-              <div class="pay-row"><span class="pay-label">Balance due Oct 1</span><span class="pay-val pay-due">$4,800.00</span></div>
+              <div class="pay-row" style="border-top:1px solid var(--border);padding-top:10px;margin-top:2px"><span class="pay-label" style="font-weight:600;color:var(--text)">Balance due Oct 1</span><span class="pay-val pay-due" style="font-size:15px">$4,800.00</span></div>
             </div>
           </div>
           <div class="panel">
@@ -541,36 +509,32 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
             <div class="doc-item"><div><div class="doc-name">Guest Confirmation GC-4471</div><div class="doc-ver">Sent Sep 13 · Awaiting e-signature</div></div><span class="chip chip-amber">Awaiting</span></div>
           </div>
           <div class="panel">
-            <div class="panel-hd"><span class="panel-title">Operator Compliance</span></div>
-            <div style="padding:10px 18px">
-              <div class="detail-row"><span class="detail-label">Operator</span><span class="detail-val" style="font-weight:600">Eagle Luxury Transit</span></div>
+            <div class="panel-hd"><span class="panel-title">Operator · Eagle Luxury Transit</span></div>
+            <div class="pad">
               <div class="detail-row"><span class="detail-label">DOT Number</span><span class="detail-val">3841792</span></div>
               <div class="detail-row"><span class="detail-label">FMCSA Status</span><span class="detail-val" style="color:var(--green);font-weight:600">Active</span></div>
               <div class="detail-row"><span class="detail-label">COI Expires</span><span class="detail-val" style="color:var(--red);font-weight:600">Sep 16, 2026 ⚠</span></div>
               <div class="detail-row"><span class="detail-label">Last Checked</span><span class="detail-val">Sep 7, 2026</span></div>
-              <div style="margin-top:12px"><button class="btn btn-primary" style="width:100%;justify-content:center">Upload Replacement COI</button></div>
+              <div style="margin-top:14px"><button class="btn btn-primary" style="width:100%;justify-content:center">Upload Replacement COI</button></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ===== MASTER SCHEDULE ===== -->
+    <!-- MASTER SCHEDULE -->
     <div id="schedule" class="page">
-      <div class="filter-bar" style="margin-bottom:20px">
+      <div class="filter-bar" style="margin-bottom:22px">
         <button class="btn btn-ghost btn-sm">← Prev</button>
-        <span style="font-family:'Mulish',sans-serif;font-weight:800;font-size:14px">Sep 14 – Sep 20, 2026</span>
+        <span style="font-family:'Mulish',sans-serif;font-weight:800;font-size:14px;padding:0 4px">Sep 14 – Sep 20, 2026</span>
         <button class="btn btn-ghost btn-sm">Next →</button>
         <select class="fsel" style="margin-left:auto"><option>All Operators</option><option>Eagle Luxury Transit</option><option>Tri-State Transport</option><option>Garden State Coach</option><option>First Class Charter</option></select>
       </div>
 
       <div class="sched-day">
-        <div class="sched-day-hd">
-          <span class="sched-date"><span class="sched-today">Mon Sep 14</span></span>
-          <span class="sched-count">4 movements</span>
-        </div>
+        <div class="sched-day-hd"><span class="sched-date"><span class="sched-today">Mon Sep 14</span></span><span class="sched-count">4 movements</span></div>
         <div class="panel"><div class="tbl-wrap"><table>
-          <thead><tr><th>Time</th><th>Booking</th><th>Route</th><th>Client</th><th>Operator</th><th>Pax</th><th>Compliance</th></tr></thead>
+          <thead><tr><th>Time</th><th>Booking</th><th>Route</th><th>Client</th><th>Operator</th><th>Pax</th><th>Status</th></tr></thead>
           <tbody>
             <tr><td class="td-muted td-nowrap">07:30</td><td class="td-id">BK-4451</td><td>DCA → Capital Hilton</td><td class="td-muted">Nexus Corp</td><td class="td-muted">Eagle Luxury</td><td class="td-muted">24</td><td><span class="chip chip-green">Clear</span></td></tr>
             <tr><td class="td-muted td-nowrap">10:00</td><td class="td-id">BK-4452</td><td>Westin DC → BWI Term. A</td><td class="td-muted">J&amp;A Consulting</td><td class="td-muted">Tri-State</td><td class="td-muted">8</td><td><span class="chip chip-amber">COI 90-day</span></td></tr>
@@ -581,12 +545,9 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
       </div>
 
       <div class="sched-day">
-        <div class="sched-day-hd">
-          <span class="sched-date">Tue Sep 15</span>
-          <span class="sched-count">2 movements</span>
-        </div>
+        <div class="sched-day-hd"><span class="sched-date">Tue Sep 15</span><span class="sched-count">2 movements</span></div>
         <div class="panel"><div class="tbl-wrap"><table>
-          <thead><tr><th>Time</th><th>Booking</th><th>Route</th><th>Client</th><th>Operator</th><th>Pax</th><th>Compliance</th></tr></thead>
+          <thead><tr><th>Time</th><th>Booking</th><th>Route</th><th>Client</th><th>Operator</th><th>Pax</th><th>Status</th></tr></thead>
           <tbody>
             <tr><td class="td-muted td-nowrap">09:00</td><td class="td-id">BK-4462</td><td>Reagan National → Marriott Crystal City</td><td class="td-muted">Meridian Group</td><td class="td-muted">Capitol Fleet</td><td class="td-muted">12</td><td><span class="chip chip-green">Clear</span></td></tr>
             <tr><td class="td-muted td-nowrap">16:30</td><td class="td-id">BK-4462</td><td>Marriott Crystal City → DCA</td><td class="td-muted">Meridian Group</td><td class="td-muted">Capitol Fleet</td><td class="td-muted">12</td><td><span class="chip chip-green">Clear</span></td></tr>
@@ -595,12 +556,9 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
       </div>
 
       <div class="sched-day">
-        <div class="sched-day-hd">
-          <span class="sched-date">Wed Sep 16</span>
-          <span class="sched-count">2 movements</span>
-        </div>
+        <div class="sched-day-hd"><span class="sched-date">Wed Sep 16</span><span class="sched-count">2 movements</span></div>
         <div class="panel"><div class="tbl-wrap"><table>
-          <thead><tr><th>Time</th><th>Booking</th><th>Route</th><th>Client</th><th>Operator</th><th>Pax</th><th>Compliance</th></tr></thead>
+          <thead><tr><th>Time</th><th>Booking</th><th>Route</th><th>Client</th><th>Operator</th><th>Pax</th><th>Status</th></tr></thead>
           <tbody>
             <tr><td class="td-muted td-nowrap">08:00</td><td class="td-id">BK-4467</td><td>Baltimore Conv. Ctr → Washington Hyatt</td><td class="td-muted">ABA Conference</td><td class="td-muted">First Class Charter</td><td class="td-muted">78</td><td><span class="chip chip-green">Clear</span></td></tr>
             <tr><td class="td-muted td-nowrap">17:00</td><td class="td-id">BK-4467</td><td>Washington Hyatt → Baltimore Conv. Ctr</td><td class="td-muted">ABA Conference</td><td class="td-muted">First Class Charter</td><td class="td-muted">78</td><td><span class="chip chip-green">Clear</span></td></tr>
@@ -609,19 +567,17 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
       </div>
 
       <div class="sched-day">
-        <div class="sched-day-hd">
-          <span class="sched-date">Thu Sep 17</span>
-          <span class="sched-count" style="color:var(--text-3)">No movements scheduled</span>
+        <div class="sched-day-hd"><span class="sched-date">Thu Sep 17</span><span class="sched-count" style="color:var(--text-3)">No movements</span></div>
+        <div class="sched-empty">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="14" height="12" rx="1.5"/><line x1="5" y1="1" x2="5" y2="5"/><line x1="11" y1="1" x2="11" y2="5"/><line x1="1" y1="7" x2="15" y2="7"/></svg>
+          No movements scheduled for Thursday, September 17
         </div>
       </div>
 
       <div class="sched-day">
-        <div class="sched-day-hd">
-          <span class="sched-date">Fri Sep 18</span>
-          <span class="sched-count">3 movements</span>
-        </div>
+        <div class="sched-day-hd"><span class="sched-date">Fri Sep 18</span><span class="sched-count">3 movements</span></div>
         <div class="panel"><div class="tbl-wrap"><table>
-          <thead><tr><th>Time</th><th>Booking</th><th>Route</th><th>Client</th><th>Operator</th><th>Pax</th><th>Compliance</th></tr></thead>
+          <thead><tr><th>Time</th><th>Booking</th><th>Route</th><th>Client</th><th>Operator</th><th>Pax</th><th>Status</th></tr></thead>
           <tbody>
             <tr><td class="td-muted td-nowrap">07:30</td><td class="td-id">BK-4471</td><td>DCA Terminal B → Capital Hilton</td><td class="td-muted">Nexus Corp</td><td class="td-muted">Eagle Luxury</td><td class="td-muted">28</td><td><span class="chip chip-red">COI Expires</span></td></tr>
             <tr><td class="td-muted td-nowrap">18:00</td><td class="td-id">BK-4471</td><td>Capital Hilton → Georgetown Waterfront</td><td class="td-muted">Nexus Corp</td><td class="td-muted">Eagle Luxury</td><td class="td-muted">28</td><td><span class="chip chip-red">COI Expires</span></td></tr>
@@ -631,55 +587,66 @@ select.fsel{background:var(--surface);border:1px solid var(--border);color:var(-
       </div>
     </div>
 
-    <!-- ===== COMPLIANCE ===== -->
+    <!-- COMPLIANCE -->
     <div id="compliance" class="page">
       <div class="stats-row">
-        <div class="stat-tile"><div class="stat-label">Total Operators</div><div class="stat-value">6</div><div class="stat-sub">Active vendor network</div></div>
-        <div class="stat-tile"><div class="stat-label">COI Critical</div><div class="stat-value c-red">1</div><div class="stat-sub">Expires within 7 days</div></div>
-        <div class="stat-tile"><div class="stat-label">FMCSA Advisory</div><div class="stat-value c-amber">2</div><div class="stat-sub">Check overdue or in review</div></div>
-        <div class="stat-tile"><div class="stat-label">Fully Compliant</div><div class="stat-value c-green">3</div><div class="stat-sub">Clear on all checks</div></div>
+        <div class="stat-tile st-blue"><div class="stat-label">Total Operators</div><div class="stat-value">6</div><div class="stat-sub">Active vendor network</div></div>
+        <div class="stat-tile st-red"><div class="stat-label">COI Critical</div><div class="stat-value c-red">1</div><div class="stat-sub">Expires within 7 days</div></div>
+        <div class="stat-tile st-amber"><div class="stat-label">FMCSA Advisory</div><div class="stat-value c-amber">2</div><div class="stat-sub">Check overdue or in review</div></div>
+        <div class="stat-tile st-green"><div class="stat-label">Fully Compliant</div><div class="stat-value c-green">3</div><div class="stat-sub">Clear on all checks</div></div>
       </div>
       <div class="panel">
         <div class="panel-hd"><span class="panel-title">Operator Compliance</span><button class="btn btn-ghost btn-sm">Run FMCSA Checks</button></div>
         <div class="tbl-wrap"><table>
-          <thead><tr><th>Operator</th><th>DOT #</th><th>FMCSA Status</th><th>COI Expires</th><th>COI Status</th><th>Last Verified</th><th>Overall</th><th></th></tr></thead>
+          <thead><tr><th>Operator</th><th>DOT #</th><th>FMCSA</th><th>COI Expires</th><th>COI Status</th><th>Last Verified</th><th>Overall</th><th></th></tr></thead>
           <tbody>
-            <tr><td><strong>Eagle Luxury Transit</strong></td><td class="td-muted">3841792</td><td style="color:var(--green);font-weight:600;font-size:12px">Active</td><td class="td-muted td-nowrap" style="color:var(--red)">Sep 16, 2026</td><td><span class="chip chip-red">Expires in 2 days</span></td><td class="td-muted td-nowrap">Sep 7, 2026</td><td><span class="chip chip-red">Critical</span></td><td><span class="panel-link">Upload COI</span></td></tr>
-            <tr><td><strong>Tri-State Transport</strong></td><td class="td-muted">2156834</td><td style="color:var(--green);font-weight:600;font-size:12px">Active</td><td class="td-muted td-nowrap">Nov 30, 2026</td><td><span class="chip chip-green">Current</span></td><td class="td-muted td-nowrap" style="color:var(--amber)">Aug 14, 2026</td><td><span class="chip chip-amber">Advisory</span></td><td><span class="panel-link">Run Check</span></td></tr>
-            <tr><td><strong>Apex Motorcoach</strong></td><td class="td-muted">2748392</td><td style="color:var(--amber);font-weight:600;font-size:12px">Under Review</td><td class="td-muted td-nowrap">Oct 5, 2026</td><td><span class="chip chip-green">Current</span></td><td class="td-muted td-nowrap">Sep 3, 2026</td><td><span class="chip chip-amber">Advisory</span></td><td><span class="panel-link">View Details</span></td></tr>
-            <tr><td><strong>Garden State Coach</strong></td><td class="td-muted">4293017</td><td style="color:var(--green);font-weight:600;font-size:12px">Active</td><td class="td-muted td-nowrap">Jan 15, 2027</td><td><span class="chip chip-green">Current</span></td><td class="td-muted td-nowrap">Sep 1, 2026</td><td><span class="chip chip-green">Clear</span></td><td><span class="panel-link">View</span></td></tr>
-            <tr><td><strong>First Class Charter</strong></td><td class="td-muted">1867523</td><td style="color:var(--green);font-weight:600;font-size:12px">Active</td><td class="td-muted td-nowrap">Mar 22, 2027</td><td><span class="chip chip-green">Current</span></td><td class="td-muted td-nowrap">Sep 8, 2026</td><td><span class="chip chip-green">Clear</span></td><td><span class="panel-link">View</span></td></tr>
-            <tr><td><strong>Capitol Fleet Services</strong></td><td class="td-muted">3029481</td><td style="color:var(--green);font-weight:600;font-size:12px">Active</td><td class="td-muted td-nowrap">Dec 1, 2026</td><td><span class="chip chip-green">Current</span></td><td class="td-muted td-nowrap">Sep 12, 2026</td><td><span class="chip chip-green">Clear</span></td><td><span class="panel-link">View</span></td></tr>
+            <tr class="cr-critical"><td><strong>Eagle Luxury Transit</strong></td><td class="td-muted">3841792</td><td style="color:var(--green);font-weight:600;font-size:12px">Active</td><td class="td-nowrap" style="color:var(--red);font-weight:600;font-size:12px">Sep 16, 2026</td><td><span class="chip chip-red">Expires in 2 days</span></td><td class="td-muted td-nowrap">Sep 7, 2026</td><td><span class="chip chip-red">Critical</span></td><td><span class="panel-link">Upload COI</span></td></tr>
+            <tr class="cr-advisory"><td><strong>Tri-State Transport</strong></td><td class="td-muted">2156834</td><td style="color:var(--green);font-weight:600;font-size:12px">Active</td><td class="td-muted td-nowrap">Nov 30, 2026</td><td><span class="chip chip-green">Current</span></td><td class="td-nowrap" style="color:var(--amber);font-weight:600;font-size:12px">Aug 14, 2026</td><td><span class="chip chip-amber">Advisory</span></td><td><span class="panel-link">Run Check</span></td></tr>
+            <tr class="cr-advisory"><td><strong>Apex Motorcoach</strong></td><td class="td-muted">2748392</td><td style="color:var(--amber);font-weight:600;font-size:12px">Under Review</td><td class="td-muted td-nowrap">Oct 5, 2026</td><td><span class="chip chip-green">Current</span></td><td class="td-muted td-nowrap">Sep 3, 2026</td><td><span class="chip chip-amber">Advisory</span></td><td><span class="panel-link">View Details</span></td></tr>
+            <tr class="cr-clear"><td><strong>Garden State Coach</strong></td><td class="td-muted">4293017</td><td style="color:var(--green);font-weight:600;font-size:12px">Active</td><td class="td-muted td-nowrap">Jan 15, 2027</td><td><span class="chip chip-green">Current</span></td><td class="td-muted td-nowrap">Sep 1, 2026</td><td><span class="chip chip-green">Clear</span></td><td><span class="panel-link">View</span></td></tr>
+            <tr class="cr-clear"><td><strong>First Class Charter</strong></td><td class="td-muted">1867523</td><td style="color:var(--green);font-weight:600;font-size:12px">Active</td><td class="td-muted td-nowrap">Mar 22, 2027</td><td><span class="chip chip-green">Current</span></td><td class="td-muted td-nowrap">Sep 8, 2026</td><td><span class="chip chip-green">Clear</span></td><td><span class="panel-link">View</span></td></tr>
+            <tr class="cr-clear"><td><strong>Capitol Fleet Services</strong></td><td class="td-muted">3029481</td><td style="color:var(--green);font-weight:600;font-size:12px">Active</td><td class="td-muted td-nowrap">Dec 1, 2026</td><td><span class="chip chip-green">Current</span></td><td class="td-muted td-nowrap">Sep 12, 2026</td><td><span class="chip chip-green">Clear</span></td><td><span class="panel-link">View</span></td></tr>
           </tbody>
         </table></div>
       </div>
     </div>
 
-  </div><!-- /content -->
-</div><!-- /main -->
-</div><!-- /shell -->
+  </div>
+</div>
+</div>
 
 <script>
-const TITLES = {
-  dashboard: 'Operations Dashboard',
-  inquiries: 'Inquiries',
-  bookings: 'Booking · BK-4471 · Nexus Corporation',
-  schedule: 'Master Schedule',
-  compliance: 'Compliance'
+const PAGES = {
+  dashboard:  { title: 'Operations Dashboard', crumb: null },
+  inquiries:  { title: 'Inquiries', crumb: null },
+  bookings:   { title: 'BK-4471 · Nexus Corporation', crumb: { label: 'Bookings', page: 'bookings' } },
+  schedule:   { title: 'Master Schedule', crumb: null },
+  compliance: { title: 'Compliance', crumb: null }
 };
 
 function goTo(page) {
   document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const item = document.querySelector(`.sb-item[data-page="${page}"]`);
-  if (item) item.classList.add('active');
-  const pageEl = document.getElementById(page);
-  if (pageEl) { pageEl.classList.add('active'); }
-  document.getElementById('topbar-title').textContent = TITLES[page] || page;
+  const nav = document.querySelector(`.sb-item[data-page="${page}"]`);
+  if (nav) nav.classList.add('active');
+  const pg = document.getElementById(page);
+  if (pg) pg.classList.add('active');
+  const cfg = PAGES[page] || { title: page, crumb: null };
+  const bc = document.getElementById('topbar-bc');
+  if (cfg.crumb) {
+    bc.innerHTML = `<div class="breadcrumb"><span class="bc-link" data-page="${cfg.crumb.page}">${cfg.crumb.label}</span><span class="bc-sep">›</span><span class="bc-current">${cfg.title}</span></div>`;
+    bc.querySelector('[data-page]').addEventListener('click', e => { e.preventDefault(); goTo(e.currentTarget.dataset.page); });
+  } else {
+    bc.innerHTML = `<div class="topbar-title">${cfg.title}</div>`;
+  }
   window.scrollTo(0, 0);
 }
 
 document.querySelectorAll('[data-page]').forEach(el => {
   el.addEventListener('click', e => { e.preventDefault(); goTo(el.dataset.page); });
+});
+
+document.getElementById('dismiss-alert')?.addEventListener('click', function() {
+  this.closest('.alert-banner').style.display = 'none';
 });
 </script>
