@@ -173,6 +173,12 @@ body{font-family:'Poppins',sans-serif;color:#0B1929;background:#B8CCE0}
 /* ─── SCHEDULE ROWS ─── */
 .sched-row{transition:background .15s,transform .15s ease;cursor:default}
 .sched-row:hover{background:rgba(255,255,255,.4)!important;transform:translateX(4px)}
+
+/* ─── QUESTION ITEMS ─── */
+.q-item{font-size:11px;color:var(--text-2);line-height:1.55;margin-bottom:8px;padding-left:10px;border-left:2px solid rgba(18,115,211,.22);transition:border-color .15s,transform .15s ease;cursor:default}
+.q-item:last-child{margin-bottom:0}
+.q-item:hover{border-left-color:var(--accent);transform:translateX(3px)}
+.q-cat{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);opacity:.8;margin-bottom:10px}
 </style>
 
 <div class="bg"></div>
@@ -436,13 +442,75 @@ body{font-family:'Poppins',sans-serif;color:#0B1929;background:#B8CCE0}
   </div>
 </div>
 
+<!-- ─── SLIDE 11: QUESTIONS TO CLARIFY ─── -->
+<div class="slide from-right" id="slide-10">
+  <div style="width:100%;max-width:980px;padding:20px 40px">
+    <div style="text-align:center;margin-bottom:20px">
+      <div class="eyebrow accent" style="margin-bottom:6px">Before We Finalize Scope</div>
+      <h2 class="h2" style="font-size:clamp(20px,2.6vw,30px);margin-bottom:5px">Questions to Clarify</h2>
+      <p class="body-sm" style="opacity:.6;font-size:11.5px">Topics to confirm with Metro Travel Services before development begins.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+
+      <div class="glass-sm" style="padding:16px 18px">
+        <div class="q-cat">Scope &amp; Brand</div>
+        <div class="q-item">Is "Metro Travel Services" the same legal entity as "Metropolitan Shuttle"? Are there multiple brands?</div>
+        <div class="q-item">How many active brands or cities need to be tracked in reporting?</div>
+      </div>
+
+      <div class="glass-sm" style="padding:16px 18px">
+        <div class="q-cat">Data Migration</div>
+        <div class="q-item">How many years of Salesforce history? Rough counts for accounts, contacts, and bookings?</div>
+        <div class="q-item">What gets migrated vs. archived vs. left behind — and who owns that decision?</div>
+      </div>
+
+      <div class="glass-sm" style="padding:16px 18px">
+        <div class="q-cat">Current Tools</div>
+        <div class="q-item">Which telephony system? Is CallRail already in place for attribution?</div>
+        <div class="q-item">Accounting system (QuickBooks, NetSuite)? E-signature tool? Payment processor?</div>
+      </div>
+
+      <div class="glass-sm" style="padding:16px 18px">
+        <div class="q-cat">Team &amp; Access</div>
+        <div class="q-item">How many reps, project managers, ops staff, and managers need CRM access?</div>
+        <div class="q-item">How is commission credit split today when a booking spans multiple reps or locations?</div>
+      </div>
+
+      <div class="glass-sm" style="padding:16px 18px">
+        <div class="q-cat">FMCSA &amp; Compliance</div>
+        <div class="q-item">Have you applied for QCMobile / FMCSA API credentials yet?</div>
+        <div class="q-item">What does the current manual compliance check process look like — how often, who does it?</div>
+      </div>
+
+      <div class="glass-sm" style="padding:16px 18px">
+        <div class="q-cat">Vendor Network</div>
+        <div class="q-item">How many active vendors / operators are in your network today?</div>
+        <div class="q-item">Is the RFQ bid-broadcasting workflow a Phase 1 must-have, or can it wait for Phase 2?</div>
+      </div>
+
+      <div class="glass-sm" style="padding:16px 18px">
+        <div class="q-cat">Recurring Shuttles</div>
+        <div class="q-item">How many active recurring shuttle contracts are currently running?</div>
+        <div class="q-item">What does contract renewal look like — annual, auto-renew, or manually triggered?</div>
+      </div>
+
+      <div class="glass-sm" style="padding:16px 18px">
+        <div class="q-cat">Timeline &amp; Budget</div>
+        <div class="q-item">Which reports are true Day 1 blockers — can we get a prioritized list?</div>
+        <div class="q-item">What is the target go-live for Phase 1? Is there a budget ceiling, or is scope driving the timeline?</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </div>
 
 <!-- NAV -->
 <div class="nav">
   <button class="nav-btn" id="prev-btn" disabled>‹</button>
   <div class="dots" id="dots"></div>
-  <div class="nav-count" id="count">1 / 10</div>
+  <div class="nav-count" id="count">1 / 11</div>
   <button class="nav-btn" id="next-btn">›</button>
 </div>
 
